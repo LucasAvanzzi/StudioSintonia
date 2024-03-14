@@ -1,0 +1,8 @@
+  "ConnectionStrings": {
+    "DataBase": "Server=DESKTOP-G62S0V2\\SQLWINDOWS; Database=DB_StudioPreview; Trusted_Connection=Yes; TrustServerCertificate=true;"
+  },
+
+CONEXÃO DO BANCO PARA RODAR
+
+
+Necessário para rodar o banco : Update-Database -Context BancoContex / jogar no terminal "package manager console"
