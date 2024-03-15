@@ -1,0 +1,53 @@
+﻿@model IEnumerable<StudioSintoniaPreview.Models.PostModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoPostagem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Midia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoPostagem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Midia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PostModelId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PostModelId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PostModelId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

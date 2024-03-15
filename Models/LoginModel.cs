@@ -1,9 +1,12 @@
-﻿namespace StudioSintoniaPreview.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StudioSintoniaPreview.Models
 {
     public class LoginModel
     {
+        [Key]
         public int LoginModelId { get; set; }
-        public bool Login { get; set; }
-        public bool Senha { get; set; }
+        public string Login { get; set; }
+        public string Senha { get; set; }
     }
 }

@@ -7,42 +7,56 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Artes\**" />
+    <Compile Remove="Views\Beats\**" />
     <Compile Remove="Views\NovaPasta1\**" />
     <Compile Remove="Views\NovaPasta2\**" />
     <Compile Remove="Views\NovaPasta\**" />
+    <Content Remove="Views\Artes\**" />
+    <Content Remove="Views\Beats\**" />
     <Content Remove="Views\NovaPasta1\**" />
     <Content Remove="Views\NovaPasta2\**" />
     <Content Remove="Views\NovaPasta\**" />
+    <EmbeddedResource Remove="Views\Artes\**" />
+    <EmbeddedResource Remove="Views\Beats\**" />
     <EmbeddedResource Remove="Views\NovaPasta1\**" />
     <EmbeddedResource Remove="Views\NovaPasta2\**" />
     <EmbeddedResource Remove="Views\NovaPasta\**" />
+    <None Remove="Views\Artes\**" />
+    <None Remove="Views\Beats\**" />
     <None Remove="Views\NovaPasta1\**" />
     <None Remove="Views\NovaPasta2\**" />
     <None Remove="Views\NovaPasta\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ArtesController.cs" />
+    <Compile Remove="Controllers\BeatsController.cs" />
     <Compile Remove="Controllers\Class.cs" />
+    <Compile Remove="Controllers\EletronicaController.cs" />
+    <Compile Remove="Controllers\FunkController.cs" />
+    <Compile Remove="Controllers\HipHopController.cs" />
+    <Compile Remove="Controllers\Lo-fiController.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Artes\Artes_Index.cshtml" />
-    <Content Remove="Views\Beats\Beats_Index.cshtml" />
     <Content Remove="Views\Musicas\Musicas_Index.cshtml" />
     <Content Remove="Views\Perfil\Perfil_Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
 </Project>

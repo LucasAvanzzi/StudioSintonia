@@ -6,3 +6,5 @@ CONEXÃO DO BANCO PARA RODAR
 
 
 Necessário para rodar o banco : Update-Database -Context BancoContex / jogar no terminal "package manager console"
+
+RODAR EM TUDO Server=(localdb)\\MSSQLLocalDB

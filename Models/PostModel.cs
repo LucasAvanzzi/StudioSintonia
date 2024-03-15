@@ -4,6 +4,7 @@ namespace StudioSintoniaPreview.Models
 {
     public class PostModel
     {
+        [Key]
         public int PostModelId { get; set; }
 
         [MaxLength(500)]

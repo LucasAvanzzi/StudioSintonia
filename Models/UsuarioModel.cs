@@ -9,7 +9,7 @@ namespace StudioSintoniaPreview.Models
 {
     public class UsuarioModel
     {
-        [MaxLength(100)]
+        [Key]
         public int UsuarioModelId { get; set; }
 
         [MaxLength(100)]

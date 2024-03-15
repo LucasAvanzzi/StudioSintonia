@@ -10,5 +10,8 @@ namespace StudioSintoniaPreview.Data
 
         }
         public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<PostModel> Posts { get; set; }
+        public DbSet<ProdutoModel> Produto { get; set; }
+        public DbSet<LoginModel>  Login { get; set; }
     }
 }
