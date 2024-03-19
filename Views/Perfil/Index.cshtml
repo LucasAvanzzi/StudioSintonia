@@ -22,7 +22,27 @@
 				<p class="label">Following</p>
 				<p class="value">789</p>
 			</div>
+			<a class="nav-link" asp-controller="PostModels" asp-action="Index">
+				<span class="material-symbols-outlined">
+					add
+				</span>
+				<h3>Post</h3>
+			</a>
 		</div>
 	</div>
+	<!-- Trigger/Open The Modal -->
+	<button id="myBtn">Open Modal</button>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p>Some text in the Modal..</p>
+		</div>
+
+	</div>
 </body>
+<script src="~/js/Modal.j"></script>
 </html>
