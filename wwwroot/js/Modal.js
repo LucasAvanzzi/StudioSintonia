@@ -1,25 +1,36 @@
-// Get the modal
+// Obtenha o modal
 var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+// Obtenha o botão que abre o modal
+var btn = document.getElementById("openModalBtn");
 
-// Get the <span> element that closes the modal
+// Obtenha o botão de fechar do modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
+// Quando o usuário clicar no botão, abra o modal
 btn.onclick = function () {
     modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
+// Quando o usuário clicar em <span> (x), feche o modal
 span.onclick = function () {
     modal.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
+// Quando o usuário clicar em qualquer lugar fora do modal, feche-o
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+
+// Lógica para lidar com a submissão do formulário
+document.getElementById("itemForm").onsubmit = function (event) {
+    event.preventDefault(); // Impede o envio do formulário
+
+    // Lógica para lidar com a criação do item
+    // Aqui você pode adicionar código para enviar os dados do formulário para o servidor, por exemplo
+
+    // Feche o modal após a criação do item (você pode modificar isso conforme necessário)
+    modal.style.display = "none";
 }

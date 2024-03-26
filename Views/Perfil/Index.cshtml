@@ -21,28 +21,45 @@
 			<div class="stat">
 				<p class="label">Following</p>
 				<p class="value">789</p>
-			</div>
+		@* 	</div>
 			<a class="nav-link" asp-controller="PostModels" asp-action="Index">
 				<span class="material-symbols-outlined">
 					add
 				</span>
 				<h3>Post</h3>
 			</a>
-		</div>
+		</div> *@
+				<div id="myModal" class="modal">
+					<!-- Conteúdo do modal -->
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<h2>Criar Novo Item</h2>
+						<!-- Formulário para criação de item -->
+						<form id="itemForm">
+							<label for="itemName">Nome do Item:</label>
+							<input type="text" id="itemName" name="itemName" required>
+							<button type="submit">Criar</button>
+						</form>
+					</div>
+				</div>
 	</div>
-	<!-- Trigger/Open The Modal -->
-	<button id="myBtn">Open Modal</button>
 
-	<!-- The Modal -->
+			<button id="openModalBtn" class="material-symbols-outlined">Add</button>
+
+	<!-- O modal -->
 	<div id="myModal" class="modal">
-
-		<!-- Modal content -->
+		<!-- Conteúdo do modal -->
 		<div class="modal-content">
 			<span class="close">&times;</span>
-			<p>Some text in the Modal..</p>
+			<h2>Criar Novo Item</h2>
+			<!-- Formulário para criação de item -->
+			<form id="itemForm">
+				<label for="itemName">Nome do Item:</label>
+				<input type="text" id="itemName" name="itemName" required>
+				<button type="submit">Criar</button>
+			</form>
 		</div>
-
 	</div>
+	<script src="~/js/Modal.js"></script>
 </body>
-<script src="~/js/Modal.j"></script>
 </html>
