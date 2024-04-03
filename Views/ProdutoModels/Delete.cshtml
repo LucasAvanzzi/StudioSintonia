@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<head>
+    <link rel="stylesheet" href="~/css/Styles.css" />
+</head>
 
 <h1>Delete</h1>
 
@@ -42,4 +45,9 @@
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 </div>
