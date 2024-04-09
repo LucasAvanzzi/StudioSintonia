@@ -4,52 +4,6 @@
     <link rel="stylesheet" href="~/css/Player.css" />
     <link rel="stylesheet" href="~/css/Styles.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
- @*    <style>
-        .container {
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-
-        .flex-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-    </style> *@
 </head>
 <body>
     <div class="flex-container">
@@ -57,11 +11,13 @@
         <h1>Seja bem-vindo ao Studio Sintonia</h1>
         <h2>Aqui você encontra os melhores beats.</h2>
     </div>
-    <form action="#" method="get">
-        <input type="text" name="search" placeholder="Pesquise...">
-        <input type="submit" value="Pesquisar">
-    </form>
-    <br />
+    <div class="container mt-4">
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
+            <br />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        </form>
+    </div>
     <br />
     <br />
     <h2>Lançamentos</h2>
