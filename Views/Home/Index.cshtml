@@ -1,15 +1,10 @@
 ﻿<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Player.css" />
     <link rel="stylesheet" href="~/css/Styles.css" />
-    <title>SEJA BEM-VINDO AO STUDIO SINTONIA</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+ @*    <style>
         .container {
             text-align: center;
             padding: 20px;
@@ -54,35 +49,48 @@
             flex-wrap: wrap;
             margin-top: 20px;
         }
-
-        .item {
-            width: 200px;
-            height: 200px;
-            background-color: #f2f2f2;
-            margin: 10px;
-            text-align: center;
-            line-height: 200px;
-            font-size: 24px;
-        }
-    </style>
+    </style> *@
 </head>
 <body>
-
     <div class="flex-container">
-        <h1>SEJA BEM-VINDO AO STUDIO SINTONIA</h1>
         <br />
-        <p>Aqui você encontra os melhores beats.</p>
-        <form action="#" method="get" class="flex-md-column">
-            <input type="text" name="search" placeholder="Pesquise...">
-            <input type="submit" value="Pesquisar">
-        </form>
+        <h1>Seja bem-vindo ao Studio Sintonia</h1>
+        <h2>Aqui você encontra os melhores beats.</h2>
+    </div>
+    <form action="#" method="get">
+        <input type="text" name="search" placeholder="Pesquise...">
+        <input type="submit" value="Pesquisar">
+    </form>
+    <br />
+    <br />
+    <br />
+    <h2>Lançamentos</h2>
+    <br />
+    <div class="player">
+
+        <div class="logo">
+            <i class='bx bx-music'></i>
+        </div>
+
+        <span id="musicName"></span>
+
+        <audio id="player" src=""></audio>
+        <div class="controls">
+            <button id="prevButton"><i class='bx bx-skip-previous'></i></button>
+            <button id="playPauseButton"><i class='bx bx-caret-right'></i></button>
+            <button id="nextButton"><i class='bx bx-skip-next'></i></button>
+        </div>
+        <div class="footer">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="time">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
     </div>
 
-    <div class="flex-container">
-        <div class="item">Item 1</div>
-        <div class="item">Item 2</div>
-        <div class="item">Item 3</div>
-        <div class="item">Item 4</div>
-    </div>
+    <script type="module" src="~/js/Script.js"></script>
 
 </body>

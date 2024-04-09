@@ -18,51 +18,45 @@
                 <aside>
                     <div class="toggle">
                         <div class="logo">
-                            <img src="~/lib/Studio Sintonia.png" />
+                            @* <img src="~/lib/Studio Sintonia.png" /> *@
                             <h2>Studio<span class="danger">Sintonia</span></h2>
-                        </div>
-                        <div class="close" id="close-btn">
-                            <span class="material-symbols-outlined">
-                                close
-                            </span>
-                        </div>
+                        </div>                     
                     </div>
                     <div class="sidebar">
-                        <a href="#">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
                             <i class="fas fa-home"></i>
                             <h3>Feed</h3>
                         </a>
-
                         <a class="nav-link" asp-controller="Perfil" asp-action="Index">
                             <i class="fas fa-user"></i>
                             <h3>Usuario</h3>
                         </a>
-                        <a class="nav-link" asp-controller="Perfil" asp-action="Index">
+                        <a class="nav-link" asp-controller="Musicas" asp-action="Index">
                             <i class="fas fa-heart"></i>
                             <h3>Curtidas</h3>
                         </a>
-                        <a href="#">
+                        <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
                             <i class="fas fa-chart-bar"></i>
                             <h3>Analytics</h3>
                         </a>
-                        <a href="#">
+                        <a class="nav-link" asp-controller="PostModels" asp-action="Index">
                             <i class="fas fa-envelope"></i>
                             <h3>Solicitações</h3>
                             <span class="message-cont"></span>
                         </a>
-                        <a href="#">
+                       @*  <a href="#">
                             <i class="fas fa-money-bill-alt"></i>
                             <h3>Vendas</h3>
                         </a>
                         <a href="#">
                             <i class="fas fa-cog"></i>
                             <h3>Configurações</h3>
-                        </a>
+                        </a> *@
                         <a class="nav link" asp-controller="LoginModels" asp-action="Index">
-                            <i class="fas fa-sign-in-alt"></i>
+                           <i class="fas fa-sign-in-alt"></i>
                             <h3>Login</h3>
                         </a>
-                        <a href="#">
+                        <a class="nav link" asp-controller="Usuario" asp-action="CadastrarUsuario">
                             <i class="fas fa-sign-out-alt"></i>
                             <h3>Logout</h3>
                         </a>
