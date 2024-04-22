@@ -21,10 +21,16 @@
                 @Html.DisplayNameFor(model => model.TipoPostagem)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Midia)
+                @Html.DisplayNameFor(model => model.Conteudo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UsuarioId)
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tags)
             </th>
             <th></th>
         </tr>
@@ -39,10 +45,16 @@
                 @Html.DisplayFor(modelItem => item.TipoPostagem)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Midia)
+                    @Html.DisplayFor(modelItem => item.Conteudo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UsuarioId)
+                    @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Tags)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PostModelId">Edit</a> |

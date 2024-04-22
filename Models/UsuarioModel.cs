@@ -12,6 +12,8 @@ namespace StudioSintoniaPreview.Models
         [Key]
         public int UsuarioModelId { get; set; }
 
+        public string UsuarioFoto { get; set; }
+
         [MaxLength(100)]
         public string? Nome { get; set; }
 
@@ -19,13 +21,21 @@ namespace StudioSintoniaPreview.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(14)]
         public string Celular { get; set; }
 
-        [MaxLength(100)]
-        public string Profissao { get; set; }
+        [MaxLength(200)]
+        public string UsuarioBio { get; set; }
 
-        public string QuantidadedePost {  get; set; }
+
+        // Relacionamento com Profissão
+        public int UsuarioProfissaoModelId { get; set; }
+
+        [MaxLength(100)]
+        public string UsuarioProfissaoNome { get; set; }
+
+        // Relacionamento com Postagem
+        public ICollection<PostModel> Postagens { get; set; }
 
 
     }

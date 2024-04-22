@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Azure;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudioSintoniaPreview.Models
 {
@@ -6,13 +7,21 @@ namespace StudioSintoniaPreview.Models
     {
         [Key]
         public int PostModelId { get; set; }
-
-        [MaxLength(500)]
+        [MaxLength(4)]
+        public string TipoPostagem { get; set; }
+        [MaxLength(4)]
+        public string Conteudo { get; set; }
+        [MaxLength(200)]
         public string Descricao { get; set; }
 
-        [MaxLength (500)]
-        public string TipoPostagem { get; set; }
-        public byte[] Midia { get; set; } // Armazenamento de mídia
-        public int UsuarioId { get; set; }
+        public int Curtidas { get; set; }
+
+        public decimal Valor { get; set; }
+
+        // Relacionamento com Comentário
+        public ICollection<Comentario> Comentarios { get; set; }
+
+        // Relacionamento com Tag
+        public ICollection<Tag> Tags { get; set; }
     }
 }
