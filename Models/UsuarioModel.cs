@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -9,34 +10,37 @@ namespace StudioSintoniaPreview.Models
 {
     public class UsuarioModel
     {
-        [Key]
+        //[Key]
         public int UsuarioModelId { get; set; }
 
-        public string UsuarioFoto { get; set; }
+        //FK
+        public int ProfissaoModelId { get; set; }
+
+
+
+        public string? UsuarioFoto { get; set; }
 
         [MaxLength(100)]
         public string? Nome { get; set; }
 
-        [MaxLength(15)]
+        [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [MaxLength(14)]
-        public string Celular { get; set; }
+        public string? Celular { get; set; }
 
         [MaxLength(200)]
-        public string UsuarioBio { get; set; }
-
-
-        // Relacionamento com Profissão
-        public int UsuarioProfissaoModelId { get; set; }
+        public string? UsuarioBio { get; set; }
 
         [MaxLength(100)]
-        public string UsuarioProfissaoNome { get; set; }
+        public string? UsuarioProfissaoNome { get; set; }
 
         // Relacionamento com Postagem
-        public ICollection<PostModel> Postagens { get; set; }
+        public ICollection<PostModel>? Postagens { get; set; }
 
+        [ForeignKey("ProfissaoModelId")]
+        public virtual ProfissaoModel? ProfissaoModel { get; set; }
 
     }
 }

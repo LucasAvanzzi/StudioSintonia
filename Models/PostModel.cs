@@ -1,27 +1,32 @@
 ﻿using Azure;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudioSintoniaPreview.Models
 {
     public class PostModel
     {
-        [Key]
+        //[Key]
         public int PostModelId { get; set; }
+
+        //FK
+        public int TagId { get; set; }
+        public int UsuarioModelId { get; set; }
+
         [MaxLength(4)]
-        public string TipoPostagem { get; set; }
-        [MaxLength(4)]
-        public string Conteudo { get; set; }
+        public string? Conteudo { get; set; }
         [MaxLength(200)]
-        public string Descricao { get; set; }
+        public string? Descricao { get; set; }
 
         public int Curtidas { get; set; }
 
         public decimal Valor { get; set; }
 
-        // Relacionamento com Comentário
-        public ICollection<Comentario> Comentarios { get; set; }
+        // Relacionamentos
+        public ICollection<Comentario>? Comentarios { get; set; }
+        public ICollection<Tag>? Tags { get; set; }
 
-        // Relacionamento com Tag
-        public ICollection<Tag> Tags { get; set; }
+        [ForeignKey("UsuarioModelId")]
+        public virtual UsuarioModel? UsuarioModel { get; set; }
     }
 }

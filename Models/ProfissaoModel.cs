@@ -4,8 +4,9 @@ namespace StudioSintoniaPreview.Models
 {
     public class ProfissaoModel
     {
-        [Key]
+        //[Key]
         public int ProfissaoModelId { get; set; }
-        public string ProfissaoNome { get; set; }
+        public string? ProfissaoNome { get; set; }
+        public virtual ICollection<UsuarioModel>? UsuariosModel { get; set; }
     }
 }
