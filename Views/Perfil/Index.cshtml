@@ -1,9 +1,4 @@
-﻿<head>
-    <link rel="stylesheet" href="~/css/Perfil.css" />
-    <link rel="stylesheet" href="~/css/Styles.css" />
-</head>
-<br />
-<body>
+﻿<br />
 <figure class="profile-card">
     <div class="profile-header">
         <img src="uploads/capa-perfil.png" alt="Capa Perfil">
@@ -46,6 +41,30 @@
     <br />
     <div class="container">
         <h1>Postagens</h1>
-        
     </div>
-</body>
+    <br />
+<div class="player">
+
+    <div class="logo">
+        <i class='bx bx-music'></i>
+    </div>
+
+    <span id="musicName"></span>
+
+    <audio id="player" src=""></audio>
+    <div class="controls">
+        <button id="prevButton"><i class='bx bx-skip-previous'></i></button>
+        <button id="playPauseButton"><i class='bx bx-caret-right'></i></button>
+        <button id="nextButton"><i class='bx bx-skip-next'></i></button>
+    </div>
+    <div class="footer">
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <div class="time">
+            <span id="currentTime">0:00</span>
+            <span id="duration">0:00</span>
+        </div>
+    </div>
+</div>
+
