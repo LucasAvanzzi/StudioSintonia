@@ -26,5 +26,9 @@ namespace StudioSintoniaPreview.Controllers
 		{
 			return View();
 		}
-	}
+        public IActionResult Musica()
+        {
+            return View();
+        }
+    }
 }
