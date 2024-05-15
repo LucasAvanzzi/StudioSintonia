@@ -11,7 +11,7 @@ namespace StudioSintoniaPreview.Models
         public int PostModelId { get; set; }
 
         [MaxLength(100)]
-        public string TagNome { get; set; }
+        public string? TagNome { get; set; }
 
         //relacionamento com PostModel
         public virtual ICollection<PostModel>? Postagens { get; set; }

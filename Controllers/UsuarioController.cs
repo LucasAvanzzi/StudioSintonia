@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudioSintoniaPreview.Models;
 using StudioSintoniaPreview.Repositorio;
+using StudioSintoniaPreview.ViewModel;
 
 namespace StudioSintoniaPreview.Controllers
 {
@@ -20,7 +21,10 @@ namespace StudioSintoniaPreview.Controllers
         }
         public IActionResult CadastrarUsuario() 
         {
-            return View();
+            var lista = new List<Usuario_ProfissaoModel>();
+
+            
+            return View(lista);
         }
     }
 }

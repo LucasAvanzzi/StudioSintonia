@@ -22,7 +22,8 @@ namespace StudioSintoniaPreview.Controllers
         // GET: PostModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            var bancoContext = _context.Posts.Include(p => p.UsuarioModel);
+            return View(await bancoContext.ToListAsync());
         }
 
         // GET: PostModels/Details/5
@@ -34,6 +35,7 @@ namespace StudioSintoniaPreview.Controllers
             }
 
             var postModel = await _context.Posts
+                .Include(p => p.UsuarioModel)
                 .FirstOrDefaultAsync(m => m.PostModelId == id);
             if (postModel == null)
             {
@@ -46,6 +48,7 @@ namespace StudioSintoniaPreview.Controllers
         // GET: PostModels/Create
         public IActionResult Create()
         {
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace StudioSintoniaPreview.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostModelId,Descricao,TipoPostagem,Midia,UsuarioId")] PostModel postModel)
+        public async Task<IActionResult> Create([Bind("PostModelId,TagId,UsuarioModelId,Conteudo,Descricao,Curtidas,Valor")] PostModel postModel)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace StudioSintoniaPreview.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
 
@@ -78,6 +82,7 @@ namespace StudioSintoniaPreview.Controllers
             {
                 return NotFound();
             }
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
 
@@ -86,7 +91,7 @@ namespace StudioSintoniaPreview.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostModelId,Descricao,TipoPostagem,Midia,UsuarioId")] PostModel postModel)
+        public async Task<IActionResult> Edit(int id, [Bind("PostModelId,TagId,UsuarioModelId,Conteudo,Descricao,Curtidas,Valor")] PostModel postModel)
         {
             if (id != postModel.PostModelId)
             {
@@ -113,6 +118,7 @@ namespace StudioSintoniaPreview.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
 
@@ -125,6 +131,7 @@ namespace StudioSintoniaPreview.Controllers
             }
 
             var postModel = await _context.Posts
+                .Include(p => p.UsuarioModel)
                 .FirstOrDefaultAsync(m => m.PostModelId == id);
             if (postModel == null)
             {

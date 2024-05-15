@@ -22,7 +22,8 @@ namespace StudioSintoniaPreview.Controllers
         // GET: Comentarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Comentarios.ToListAsync());
+            var bancoContext = _context.Comentarios.Include(c => c.PostModel).Include(c => c.UsuarioModel);
+            return View(await bancoContext.ToListAsync());
         }
 
         // GET: Comentarios/Details/5
@@ -34,6 +35,8 @@ namespace StudioSintoniaPreview.Controllers
             }
 
             var comentario = await _context.Comentarios
+                .Include(c => c.PostModel)
+                .Include(c => c.UsuarioModel)
                 .FirstOrDefaultAsync(m => m.ComentarioId == id);
             if (comentario == null)
             {
@@ -46,6 +49,8 @@ namespace StudioSintoniaPreview.Controllers
         // GET: Comentarios/Create
         public IActionResult Create()
         {
+            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId");
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace StudioSintoniaPreview.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ComentarioId,UsuarioModelId,UsuarioNome,PostModelId,TipoPostagem")] Comentario comentario)
+        public async Task<IActionResult> Create([Bind("ComentarioId,UsuarioModelId,PostModelId,UsuarioNome")] Comentario comentario)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace StudioSintoniaPreview.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
             return View(comentario);
         }
 
@@ -78,6 +85,8 @@ namespace StudioSintoniaPreview.Controllers
             {
                 return NotFound();
             }
+            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
             return View(comentario);
         }
 
@@ -86,7 +95,7 @@ namespace StudioSintoniaPreview.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ComentarioId,UsuarioModelId,UsuarioNome,PostModelId,TipoPostagem")] Comentario comentario)
+        public async Task<IActionResult> Edit(int id, [Bind("ComentarioId,UsuarioModelId,PostModelId,UsuarioNome")] Comentario comentario)
         {
             if (id != comentario.ComentarioId)
             {
@@ -113,6 +122,8 @@ namespace StudioSintoniaPreview.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
+            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
             return View(comentario);
         }
 
@@ -125,6 +136,8 @@ namespace StudioSintoniaPreview.Controllers
             }
 
             var comentario = await _context.Comentarios
+                .Include(c => c.PostModel)
+                .Include(c => c.UsuarioModel)
                 .FirstOrDefaultAsync(m => m.ComentarioId == id);
             if (comentario == null)
             {
