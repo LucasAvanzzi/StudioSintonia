@@ -6,26 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudioSintoniaPreview.Data;
-using StudioSintoniaPreview.Models;
+using StudioSintoniaPreview.Entities;
 
 namespace StudioSintoniaPreview.Controllers
 {
-    public class ProfissaoModelsController : Controller
+    public class UsuarioLoginsController : Controller
     {
         private readonly BancoContext _context;
 
-        public ProfissaoModelsController(BancoContext context)
+        public UsuarioLoginsController(BancoContext context)
         {
             _context = context;
         }
 
-        // GET: ProfissaoModels
+        // GET: UsuarioLogins
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProfissaoModels.ToListAsync());
+            return View(await _context.UsuarioLogins.ToListAsync());
         }
 
-        // GET: ProfissaoModels/Details/5
+        // GET: UsuarioLogins/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
-            var profissaoModel = await _context.ProfissaoModels
-                .FirstOrDefaultAsync(m => m.ProfissaoModelId == id);
-            if (profissaoModel == null)
+            var usuarioLogin = await _context.UsuarioLogins
+                .FirstOrDefaultAsync(m => m.UsuarioLoginId == id);
+            if (usuarioLogin == null)
             {
                 return NotFound();
             }
 
-            return View(profissaoModel);
+            return View(usuarioLogin);
         }
 
-        // GET: ProfissaoModels/Create
+        // GET: UsuarioLogins/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ProfissaoModels/Create
+        // POST: UsuarioLogins/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProfissaoModelId,ProfissaoNome")] ProfissaoModel profissaoModel)
+        public async Task<IActionResult> Create([Bind("UsuarioLoginId,UsuarioNome,UsuarioEmail,Celular")] UsuarioLogin usuarioLogin)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(profissaoModel);
+                _context.Add(usuarioLogin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(profissaoModel);
+            return View(usuarioLogin);
         }
 
-        // GET: ProfissaoModels/Edit/5
+        // GET: UsuarioLogins/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
-            var profissaoModel = await _context.ProfissaoModels.FindAsync(id);
-            if (profissaoModel == null)
+            var usuarioLogin = await _context.UsuarioLogins.FindAsync(id);
+            if (usuarioLogin == null)
             {
                 return NotFound();
             }
-            return View(profissaoModel);
+            return View(usuarioLogin);
         }
 
-        // POST: ProfissaoModels/Edit/5
+        // POST: UsuarioLogins/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProfissaoModelId,ProfissaoNome")] ProfissaoModel profissaoModel)
+        public async Task<IActionResult> Edit(int id, [Bind("UsuarioLoginId,UsuarioNome,UsuarioEmail,Celular")] UsuarioLogin usuarioLogin)
         {
-            if (id != profissaoModel.ProfissaoModelId)
+            if (id != usuarioLogin.UsuarioLoginId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace StudioSintoniaPreview.Controllers
             {
                 try
                 {
-                    _context.Update(profissaoModel);
+                    _context.Update(usuarioLogin);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProfissaoModelExists(profissaoModel.ProfissaoModelId))
+                    if (!UsuarioLoginExists(usuarioLogin.UsuarioLoginId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace StudioSintoniaPreview.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(profissaoModel);
+            return View(usuarioLogin);
         }
 
-        // GET: ProfissaoModels/Delete/5
+        // GET: UsuarioLogins/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
-            var profissaoModel = await _context.ProfissaoModels
-                .FirstOrDefaultAsync(m => m.ProfissaoModelId == id);
-            if (profissaoModel == null)
+            var usuarioLogin = await _context.UsuarioLogins
+                .FirstOrDefaultAsync(m => m.UsuarioLoginId == id);
+            if (usuarioLogin == null)
             {
                 return NotFound();
             }
 
-            return View(profissaoModel);
+            return View(usuarioLogin);
         }
 
-        // POST: ProfissaoModels/Delete/5
+        // POST: UsuarioLogins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var profissaoModel = await _context.ProfissaoModels.FindAsync(id);
-            if (profissaoModel != null)
+            var usuarioLogin = await _context.UsuarioLogins.FindAsync(id);
+            if (usuarioLogin != null)
             {
-                _context.ProfissaoModels.Remove(profissaoModel);
+                _context.UsuarioLogins.Remove(usuarioLogin);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProfissaoModelExists(int id)
+        private bool UsuarioLoginExists(int id)
         {
-            return _context.ProfissaoModels.Any(e => e.ProfissaoModelId == id);
+            return _context.UsuarioLogins.Any(e => e.UsuarioLoginId == id);
         }
     }
 }

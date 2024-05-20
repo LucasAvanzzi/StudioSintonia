@@ -13,21 +13,16 @@ namespace StudioSintoniaPreview.Models
         //[Key]
         public int UsuarioModelId { get; set; }
 
-        //FK
-        public int ProfissaoModelId { get; set; }
-
-
-
         public string? UsuarioFoto { get; set; }
 
-        [MaxLength(100)]
+        [Required, MaxLength(100, ErrorMessage = "Nome não pode exceder 100 caracteres")]
         public string? Nome { get; set; }
 
-        [MaxLength(50)]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [Required, MaxLength(120)]
         public string? Email { get; set; }
 
-        [MaxLength(14)]
+        [Required, MaxLength(14)]
         public string? Celular { get; set; }
 
         [MaxLength(200)]
@@ -38,9 +33,6 @@ namespace StudioSintoniaPreview.Models
 
         // Relacionamento com Postagem
         public ICollection<PostModel>? Postagens { get; set; }
-
-        [ForeignKey("ProfissaoModelId")]
-        public virtual ProfissaoModel? ProfissaoModel { get; set; }
 
     }
 }

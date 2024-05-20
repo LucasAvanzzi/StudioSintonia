@@ -5,24 +5,11 @@
 namespace StudioSintoniaPreview.Migrations
 {
     /// <inheritdoc />
-    public partial class DbContextMigration : Migration
+    public partial class DbContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "ProfissaoModels",
-                columns: table => new
-                {
-                    ProfissaoModelId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfissaoNome = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProfissaoModels", x => x.ProfissaoModelId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Tags",
                 columns: table => new
@@ -38,28 +25,36 @@ namespace StudioSintoniaPreview.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UsuarioLogins",
+                columns: table => new
+                {
+                    UsuarioLoginId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsuarioNome = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    UsuarioEmail = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    Celular = table.Column<decimal>(type: "decimal(18,2)", maxLength: 14, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsuarioLogins", x => x.UsuarioLoginId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
                     UsuarioModelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfissaoModelId = table.Column<int>(type: "int", nullable: false),
                     UsuarioFoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Celular = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    Celular = table.Column<decimal>(type: "decimal(18,2)", maxLength: 14, nullable: false),
                     UsuarioBio = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     UsuarioProfissaoNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.UsuarioModelId);
-                    table.ForeignKey(
-                        name: "FK_Usuarios_ProfissaoModels_ProfissaoModelId",
-                        column: x => x.ProfissaoModelId,
-                        principalTable: "ProfissaoModels",
-                        principalColumn: "ProfissaoModelId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,7 +79,6 @@ namespace StudioSintoniaPreview.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "UsuarioModelId",
                         onDelete: ReferentialAction.Cascade);
-
                 });
 
             migrationBuilder.CreateTable(
@@ -138,6 +132,11 @@ namespace StudioSintoniaPreview.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "UsuarioLogins",
+                columns: new[] { "UsuarioLoginId", "Celular", "UsuarioEmail", "UsuarioNome" },
+                values: new object[] { 1, 11977039750m, "lucasavanzzi1223@gmail.com", "Lucas Avanci" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Comentarios_PostModelId",
                 table: "Comentarios",
@@ -157,11 +156,6 @@ namespace StudioSintoniaPreview.Migrations
                 name: "IX_Posts_UsuarioModelId",
                 table: "Posts",
                 column: "UsuarioModelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_ProfissaoModelId",
-                table: "Usuarios",
-                column: "ProfissaoModelId");
         }
 
         /// <inheritdoc />
@@ -174,6 +168,9 @@ namespace StudioSintoniaPreview.Migrations
                 name: "PostModelTag");
 
             migrationBuilder.DropTable(
+                name: "UsuarioLogins");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
@@ -181,9 +178,6 @@ namespace StudioSintoniaPreview.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "ProfissaoModels");
         }
     }
 }

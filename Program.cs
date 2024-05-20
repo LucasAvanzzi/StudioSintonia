@@ -19,6 +19,8 @@ namespace StudioSintoniaPreview
              );
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
