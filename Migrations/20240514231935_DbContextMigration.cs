@@ -5,7 +5,7 @@
 namespace StudioSintoniaPreview.Migrations
 {
     /// <inheritdoc />
-    public partial class DbContext : Migration
+    public partial class DbContextMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace StudioSintoniaPreview.Migrations
                 {
                     ProfissaoModelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfissaoNome = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ProfissaoNome = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +29,8 @@ namespace StudioSintoniaPreview.Migrations
                 {
                     TagId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TagNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    PostModelId = table.Column<int>(type: "int", nullable: false),
+                    TagNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,17 +43,23 @@ namespace StudioSintoniaPreview.Migrations
                 {
                     UsuarioModelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioFoto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfissaoModelId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioFoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Celular = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
-                    UsuarioBio = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UsuarioProfissaoModelId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioProfissaoNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Celular = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
+                    UsuarioBio = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    UsuarioProfissaoNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.UsuarioModelId);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_ProfissaoModels_ProfissaoModelId",
+                        column: x => x.ProfissaoModelId,
+                        principalTable: "ProfissaoModels",
+                        principalColumn: "ProfissaoModelId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,12 +68,12 @@ namespace StudioSintoniaPreview.Migrations
                 {
                     PostModelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TipoPostagem = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    Conteudo = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioModelId = table.Column<int>(type: "int", nullable: false),
+                    Conteudo = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
+                    Descricao = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Curtidas = table.Column<int>(type: "int", nullable: false),
-                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UsuarioModelId = table.Column<int>(type: "int", nullable: true)
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,7 +82,9 @@ namespace StudioSintoniaPreview.Migrations
                         name: "FK_Posts_Usuarios_UsuarioModelId",
                         column: x => x.UsuarioModelId,
                         principalTable: "Usuarios",
-                        principalColumn: "UsuarioModelId");
+                        principalColumn: "UsuarioModelId",
+                        onDelete: ReferentialAction.Cascade);
+
                 });
 
             migrationBuilder.CreateTable(
@@ -85,9 +94,8 @@ namespace StudioSintoniaPreview.Migrations
                     ComentarioId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UsuarioModelId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PostModelId = table.Column<int>(type: "int", nullable: false),
-                    TipoPostagem = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false)
+                    UsuarioNome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,6 +106,12 @@ namespace StudioSintoniaPreview.Migrations
                         principalTable: "Posts",
                         principalColumn: "PostModelId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comentarios_Usuarios_UsuarioModelId",
+                        column: x => x.UsuarioModelId,
+                        principalTable: "Usuarios",
+                        principalColumn: "UsuarioModelId",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +144,11 @@ namespace StudioSintoniaPreview.Migrations
                 column: "PostModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comentarios_UsuarioModelId",
+                table: "Comentarios",
+                column: "UsuarioModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PostModelTag_TagsTagId",
                 table: "PostModelTag",
                 column: "TagsTagId");
@@ -138,6 +157,11 @@ namespace StudioSintoniaPreview.Migrations
                 name: "IX_Posts_UsuarioModelId",
                 table: "Posts",
                 column: "UsuarioModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_ProfissaoModelId",
+                table: "Usuarios",
+                column: "ProfissaoModelId");
         }
 
         /// <inheritdoc />
@@ -150,9 +174,6 @@ namespace StudioSintoniaPreview.Migrations
                 name: "PostModelTag");
 
             migrationBuilder.DropTable(
-                name: "ProfissaoModels");
-
-            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
@@ -160,6 +181,9 @@ namespace StudioSintoniaPreview.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "ProfissaoModels");
         }
     }
 }

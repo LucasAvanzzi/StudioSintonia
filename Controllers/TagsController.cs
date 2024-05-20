@@ -54,7 +54,7 @@ namespace StudioSintoniaPreview.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TagId,TagNome")] Tag tag)
+        public async Task<IActionResult> Create([Bind("TagId,PostModelId,TagNome")] Tag tag)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace StudioSintoniaPreview.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TagId,TagNome")] Tag tag)
+        public async Task<IActionResult> Edit(int id, [Bind("TagId,PostModelId,TagNome")] Tag tag)
         {
             if (id != tag.TagId)
             {
