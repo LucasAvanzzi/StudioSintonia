@@ -32,6 +32,36 @@
                 <li><a href="#" title="Pinterest"> <i class="icon icon-pinterest"></i> </a></li>
 
             </ul>
+            <br />
+            <!-- Botão para abrir o modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Novo Post
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Conteúdo do modal vai aqui.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                            <a class="nav-link" asp-controller="Imagens" asp-action="UploadImagem">
+                                <i class="fas fa-user"></i>
+                                <h3>Usuario</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </figure>
@@ -67,4 +97,3 @@
         </div>
     </div>
 </div>
-
