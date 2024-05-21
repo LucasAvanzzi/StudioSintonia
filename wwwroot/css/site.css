@@ -1,22 +1,78 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    font-family: 'Poppins', 'sans-serif';
+    background-color: #f0f0f0; /* Cor de fundo da página */
+}
+
+.login-container {
+    background-color: #ffffff; /* Cor de fundo do formulário */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center; /* Centralizar conteúdo dentro do formulário */
+}
+
+    .login-container h2 {
+        margin-bottom: 1.5rem;
+        color: #333333; /* Cor do título */
+    }
+
+.btn-primary {
+    background-color: #007bff; /* Cor do botão */
+    border-color: #007bff;
+    border-radius: 20px; /* Bordas arredondadas */
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+.btn-register {
+    background-color: #28a745; /* Cor do botão registrar-se */
+    border-color: #28a745;
+    border-radius: 10px; /* Bordas arredondadas */
+    margin-top: 1rem;
+}
+
+    .btn-register:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizar a checkbox e o label */
+}
+
+.form-check-input {
+    margin-right: 0.5rem;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+@media (max-width: 600px) {
+    .login-container {
+        padding: 1.5rem;
+    }
+}
+
+/* Remove o rótulo visualmente, mas mantém-no acessível para leitores de tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }

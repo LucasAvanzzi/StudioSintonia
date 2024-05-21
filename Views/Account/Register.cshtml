@@ -1,0 +1,85 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Registro de Usuário";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Cor de fundo da página */
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff; /* Cor de fundo do formulário */
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center; /* Centralizar conteúdo dentro do formulário */
+        }
+
+            .login-container h3 {
+                margin-bottom: 1.5rem;
+                color: #333333; /* Cor do título */
+            }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Cor do botão */
+            border-color: #007bff;
+            border-radius: 20px; /* Bordas arredondadas */
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h3>Registro de Usuário</h3>
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+        </form>
+    </div>
+</body>
+</html>

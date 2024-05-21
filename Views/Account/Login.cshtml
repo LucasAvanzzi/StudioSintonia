@@ -2,33 +2,119 @@
 
 @{
     ViewBag.Title = "Login";
+    Layout = null; 
 }
 
-<h3>Login</h3>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Cor de fundo da página */
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff; /* Cor de fundo do formulário */
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center; /* Centralizar conteúdo dentro do formulário */
+        }
+
+        .login-container h2 {
+            margin-bottom: 1.5rem;
+            color: #333333; /* Cor do título */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Cor do botão */
+            border-color: #007bff;
+            border-radius: 20px; /* Bordas arredondadas */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-register {
+            background-color: #FFFFFF; /* Cor do botão registrar-se */
+            border-color: #FFFFFF;
+            border-radius: 20px; /* Bordas arredondadas */
+            margin-top: 1rem;
+        }
+
+        .btn-register:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centralizar a checkbox e o label */
+        }
+
+        .form-check-input {
+            margin-right: 0.5rem;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
 
 
-<div class="row">
-    <div class="col-md-12">
-        <form method="post">
+        /* Remove o rótulo visualmente, mas mantém-no acessível para leitores de tela */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form asp-action="Login" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="sr-only"></label>
+                <input asp-for="Email" class="form-control" placeholder="Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password"> class="form-control" />
+                <label asp-for="Password" class="sr-only"></label>
+                <input asp-for="Password" class="form-control" placeholder="Senha" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="checkbox"></div>
-                <label asp-for="RememberMe">
-                <input asp-for="RememberMe">  />
-                @Html.DisplayNameFor( m => m.RememberMe)
-                </label>
+            <div class="form-group form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label">Lembrar de mim</label>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Login</button>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
+        <br />
+        <a href="@Url.Action("Register", "Account")" class="btn btn-register btn-block">Registrar-se</a>
     </div>
-</div>
+</body>
+</html>

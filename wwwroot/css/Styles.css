@@ -213,20 +213,46 @@ aside {
         text-decoration: none;
         cursor: pointer;
     }
-/*Container Curtidas*/
-.flex-container {
-    display: flex;
-    flex-direction:row;
+/* Container Curtidas */
+.container {
+    margin-top: 20px;
 }
 
-    .flex-container > div {
-        background-color: #f1f1f1;
-        width: 15px;
-        margin: 10px;
-        text-align: center;
-        line-height: 75px;
-        font-size: 30px;
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.player {
+    min-width: 200px;
+    max-width: 300px;
+    margin-right: 10px;
+}
+
+.Capa {
+    min-width: 150px;
+    max-width: 200px;
+    margin-right: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+    .Capa img {
+        width: 100%;
+        height: auto;
     }
+
+.NomeCapa {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
     /*Container Titulo*/
 .container1 {
     display: flex;
