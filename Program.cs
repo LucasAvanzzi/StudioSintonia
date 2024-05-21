@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudioSintoniaPreview.Data;
 using StudioSintoniaPreview.Repositorio;
@@ -19,6 +20,7 @@ namespace StudioSintoniaPreview
              );
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<BancoContext>();
 
 
             var app = builder.Build();
@@ -35,6 +37,8 @@ namespace StudioSintoniaPreview
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

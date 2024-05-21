@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using StudioSintoniaPreview.Models;
 
 namespace StudioSintoniaPreview.Controllers
 {
+    [Authorize]
     public class UsuarioModelsController : Controller
     {
         private readonly BancoContext _context;
