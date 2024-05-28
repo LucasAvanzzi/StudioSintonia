@@ -13,10 +13,13 @@ namespace StudioSintoniaPreview.Controllers
     public class PostModelsController : Controller
     {
         private readonly BancoContext _context;
+        private string caminhoServidor;
 
-        public PostModelsController(BancoContext context)
+
+        public PostModelsController(BancoContext context, IWebHostEnvironment Sistema)
         {
             _context = context;
+            caminhoServidor = Sistema.WebRootPath;
         }
 
         // GET: PostModels
@@ -53,14 +56,23 @@ namespace StudioSintoniaPreview.Controllers
         }
 
         // POST: PostModels/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostModelId,TagId,UsuarioModelId,Conteudo,Descricao,Curtidas,Valor")] PostModel postModel)
+        public async Task<IActionResult> Create([Bind("PostModelId,TagId,UsuarioModelId,Conteudo,Descricao,Curtidas,Valor")] PostModel postModel, IFormFile arquivo)
         {
             if (ModelState.IsValid)
             {
+                string caminhoParaSalvarArquivo = caminhoServidor + "\\arquivos\\";
+                string novoNomeParaArquivo = Guid.NewGuid().ToString() + "_" + arquivo.FileName;
+                if (!Directory.Exists(caminhoParaSalvarArquivo))
+                {
+                    Directory.CreateDirectory(caminhoParaSalvarArquivo);
+                }
+                using (var stream = System.IO.File.Create(caminhoParaSalvarArquivo + novoNomeParaArquivo))
+                {
+                    arquivo.CopyToAsync(stream);
+                }
+                postModel.Conteudo = arquivo.FileName;
                 _context.Add(postModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

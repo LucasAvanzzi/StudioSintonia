@@ -14,7 +14,7 @@ namespace StudioSintoniaPreview.Models
         public int TagId { get; set; }
         public int UsuarioModelId { get; set; }
 
-        [MaxLength(4)]
+        [MaxLength(500)]
         public string? Conteudo { get; set; }
         [MaxLength(200)]
         public string? Descricao { get; set; }
