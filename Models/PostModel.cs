@@ -21,6 +21,8 @@ namespace StudioSintoniaPreview.Models
 
         public int Curtidas { get; set; }
 
+        public bool Curtido { get; set; }
+
         [Precision(18,2)]
         public decimal Valor { get; set; }
 

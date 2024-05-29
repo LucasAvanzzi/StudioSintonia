@@ -314,6 +314,9 @@ namespace StudioSintoniaPreview.Migrations
                     b.Property<int>("Curtidas")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Curtido")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Descricao")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");

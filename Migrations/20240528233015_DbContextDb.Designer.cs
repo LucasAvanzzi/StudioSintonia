@@ -12,8 +12,8 @@ using StudioSintoniaPreview.Data;
 namespace StudioSintoniaPreview.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20240528015358_Post")]
-    partial class Post
+    [Migration("20240528233015_DbContextDb")]
+    partial class DbContextDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -316,6 +316,9 @@ namespace StudioSintoniaPreview.Migrations
 
                     b.Property<int>("Curtidas")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Curtido")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Descricao")
                         .HasMaxLength(200)
