@@ -1,38 +1,29 @@
-﻿<br />
-    <div>
-        <h1>Relatórios</h1>
-        <div class="analyse">
-            <div class="sales">
-                <div class="status">
-                    <div class="info">
-                    <h3>Vendas Totais</h3>
-                    <h1>0</h1>
-                    </div>
-        <div class="progress">
-        <svg>
-            <circle cx="38" cy="38" r="36"></circle>
-        </svg>
-            <div class="percentage">
-            <p>0%</p>
+﻿<body>
+    <div class="container">
+        <header>
+            <h1>Relatório de Atividades</h1>
+        </header>
+        <section class="statistics">
+            <div class="stat-item">
+                <h2>Total de Curtidas</h2>
+                <p id="total-curtidas">0</p>
             </div>
-        </div>
-                </div>
+            <div class="stat-item">
+                <h2>Total de Posts</h2>
+                <p id="total-posts">0</p>
             </div>
-        <div class="views">
-            <div class="status">
-                <div class="info">
-                <h3>Views Totais</h3>
-                <h1>0</h1>
-                </div>
-        <div class="progress">
-        <svg>
-            <circle cx="38" cy="38" r="36"></circle>
-        </svg>
-        <div class="percentage">
-            <p>0%</p>
-        </div>
-        </div>
+            <div class="stat-item">
+                <h2>Post Mais Curtido</h2>
+                <p id="post-mais-curtido">Nenhum</p>
+                <p id="curtidas-post-mais-curtido">Curtidas: 0</p>
             </div>
-        </div>
-        </div>
-
+            <div class="stat-item">
+                <h2>Mais Vendido</h2>
+                <p id="mais-vendido">Nenhum</p>
+                <p id="vendas-mais-vendido">Vendas: 0</p>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

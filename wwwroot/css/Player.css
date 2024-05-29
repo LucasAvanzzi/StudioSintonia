@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    max-width: 150px; 
+    max-width: 400px; 
     width: 30%;
     height: 400px;
     margin: 0 10px;
@@ -97,16 +97,16 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    max-width: 150px;
+    max-width: 4000px;
     width: 30%;
     height: 400px;
     margin: 0 10px;
     box-shadow: 0 1px 10px gray;
     padding: 10px;
     border-radius: 5px;
+    margin-top:5px;
 }
 
-}
 
 .capa-container {
     width: 45%; /* Ajuste conforme necessário */

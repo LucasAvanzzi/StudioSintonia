@@ -23,7 +23,7 @@
 
                 @* <select asp-for="UsuarioModelId" class ="form-control" asp-items="ViewBag.UsuarioModelId" value="1"></select> *@
             </div>
-            <div class="form-group">
+            <div class="form-group" action="/Imagens/UploadImagem" method="post" enctype="multipart/form-data">
                 <label>Escolha seu arquivo</label>
                 <Input type="file" name="arquivo" asp-for="Conteudo" />
                 <br />
