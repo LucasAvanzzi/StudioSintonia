@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudioSintoniaPreview.Migrations
 {
     /// <inheritdoc />
-    public partial class DbContextDb : Migration
+    public partial class DbContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -246,13 +246,13 @@ namespace StudioSintoniaPreview.Migrations
                         column: x => x.PostModelId,
                         principalTable: "Posts",
                         principalColumn: "PostModelId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comentarios_Usuarios_UsuarioModelId",
                         column: x => x.UsuarioModelId,
                         principalTable: "Usuarios",
                         principalColumn: "UsuarioModelId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

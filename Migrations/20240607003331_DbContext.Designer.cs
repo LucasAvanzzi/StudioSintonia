@@ -12,8 +12,8 @@ using StudioSintoniaPreview.Data;
 namespace StudioSintoniaPreview.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20240528233015_DbContextDb")]
-    partial class DbContextDb
+    [Migration("20240607003331_DbContext")]
+    partial class DbContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

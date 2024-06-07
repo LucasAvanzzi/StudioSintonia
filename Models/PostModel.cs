@@ -18,6 +18,8 @@ namespace StudioSintoniaPreview.Models
         public string? Conteudo { get; set; }
         [MaxLength(200)]
         public string? Descricao { get; set; }
+        [NotMapped]
+        public IFormFile? MetaDadosImagem { get; set; }
 
         public int Curtidas { get; set; }
 

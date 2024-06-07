@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -58,21 +59,31 @@ namespace StudioSintoniaPreview.Controllers
         // POST: PostModels/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostModelId,TagId,UsuarioModelId,Conteudo,Descricao,Curtidas,Valor")] PostModel postModel, IFormFile arquivo)
+        public async Task<IActionResult> Create(PostModel postModel)
         {
             if (ModelState.IsValid)
             {
-                string caminhoParaSalvarArquivo = caminhoServidor + "\\arquivos\\";
-                string novoNomeParaArquivo = Guid.NewGuid().ToString() + "_" + arquivo.FileName;
-                if (!Directory.Exists(caminhoParaSalvarArquivo))
+                // Pega ID do usuário logado
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+                //postModel.UsuarioModelId = userId; Descomentar assim que alterar userId pra Guid
+
+                // Se o post tiver imagem, salvar na wwwroot e o nome do arquivo na prop "Conteudo"
+                if (postModel.MetaDadosImagem is not null)
                 {
-                    Directory.CreateDirectory(caminhoParaSalvarArquivo);
+                    string caminhoParaSalvarArquivo = caminhoServidor + "\\arquivos\\";
+                    string novoNomeParaArquivo = Guid.NewGuid().ToString() + "_" + postModel.MetaDadosImagem.FileName;
+                    if (!Directory.Exists(caminhoParaSalvarArquivo))
+                    {
+                        Directory.CreateDirectory(caminhoParaSalvarArquivo);
+                    }
+                    using (var stream = System.IO.File.Create(caminhoParaSalvarArquivo + novoNomeParaArquivo))
+                    {
+                       await postModel!.MetaDadosImagem.CopyToAsync(stream);
+                    }
+                    postModel.Conteudo = postModel.MetaDadosImagem.FileName;
                 }
-                using (var stream = System.IO.File.Create(caminhoParaSalvarArquivo + novoNomeParaArquivo))
-                {
-                    arquivo.CopyToAsync(stream);
-                }
-                postModel.Conteudo = arquivo.FileName;
+
+                // Adiciona postagem no banco
                 _context.Add(postModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -80,6 +91,7 @@ namespace StudioSintoniaPreview.Controllers
             ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
+
 
         // GET: PostModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
