@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudioSintoniaPreview.Models
 {
@@ -8,6 +9,7 @@ namespace StudioSintoniaPreview.Models
         public int TagId { get; set; }
 
         //FK
+        [ForeignKey("PostModelId")]
         public int PostModelId { get; set; }
 
         [MaxLength(100)]

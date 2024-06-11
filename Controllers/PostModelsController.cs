@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,19 +16,27 @@ namespace StudioSintoniaPreview.Controllers
     {
         private readonly BancoContext _context;
         private string caminhoServidor;
+        private readonly UserManager<IdentityUser> _userManager;
 
-
-        public PostModelsController(BancoContext context, IWebHostEnvironment Sistema)
+        public PostModelsController(BancoContext context, IWebHostEnvironment Sistema, UserManager<IdentityUser> userManager)
         {
             _context = context;
             caminhoServidor = Sistema.WebRootPath;
+            _userManager = userManager;
         }
 
-        // GET: PostModels
+        // GET: PostModels9
         public async Task<IActionResult> Index()
         {
-            var bancoContext = _context.Posts.Include(p => p.UsuarioModel);
+            var usuario = await _userManager.GetUserAsync(User);
+            var bancoContext = _context.Posts.Where(p => p.UsuarioModelId == usuario!.Id);
             return View(await bancoContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Feed()
+        {
+            var bancoContext = await _context.Posts.ToListAsync();
+            return View(bancoContext);
         }
 
         // GET: PostModels/Details/5
@@ -38,8 +47,9 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
+            var usuario = await _userManager.GetUserAsync(User);
             var postModel = await _context.Posts
-                .Include(p => p.UsuarioModel)
+                .Where(p => p.UsuarioModelId == usuario!.Id)
                 .FirstOrDefaultAsync(m => m.PostModelId == id);
             if (postModel == null)
             {
@@ -52,7 +62,6 @@ namespace StudioSintoniaPreview.Controllers
         // GET: PostModels/Create
         public IActionResult Create()
         {
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId");
             return View();
         }
 
@@ -65,22 +74,28 @@ namespace StudioSintoniaPreview.Controllers
             {
                 // Pega ID do usuário logado
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
-                //postModel.UsuarioModelId = userId; Descomentar assim que alterar userId pra Guid
+                postModel.UsuarioModelId = userId;
 
                 // Se o post tiver imagem, salvar na wwwroot e o nome do arquivo na prop "Conteudo"
                 if (postModel.MetaDadosImagem is not null)
                 {
-                    string caminhoParaSalvarArquivo = caminhoServidor + "\\arquivos\\";
-                    string novoNomeParaArquivo = Guid.NewGuid().ToString() + "_" + postModel.MetaDadosImagem.FileName;
+                    string caminhoParaSalvarArquivo = Path.Combine(caminhoServidor, "arquivos");
+                    string guid = Guid.NewGuid().ToString();
+                    string novoNomeParaArquivo = $"{guid}_{postModel.MetaDadosImagem.FileName}";
+
                     if (!Directory.Exists(caminhoParaSalvarArquivo))
                     {
                         Directory.CreateDirectory(caminhoParaSalvarArquivo);
                     }
-                    using (var stream = System.IO.File.Create(caminhoParaSalvarArquivo + novoNomeParaArquivo))
+
+                    string caminhoCompleto = Path.Combine(caminhoParaSalvarArquivo, novoNomeParaArquivo);
+
+                    using (var stream = new FileStream(caminhoCompleto, FileMode.Create))
                     {
-                       await postModel!.MetaDadosImagem.CopyToAsync(stream);
+                        await postModel.MetaDadosImagem.CopyToAsync(stream);
                     }
-                    postModel.Conteudo = postModel.MetaDadosImagem.FileName;
+
+                    postModel.Conteudo = novoNomeParaArquivo; // Salva o nome do arquivo com o GUID no banco
                 }
 
                 // Adiciona postagem no banco
@@ -88,7 +103,8 @@ namespace StudioSintoniaPreview.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
+
+            // ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
 
@@ -106,7 +122,7 @@ namespace StudioSintoniaPreview.Controllers
             {
                 return NotFound();
             }
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
+            //ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
 
@@ -140,7 +156,7 @@ namespace StudioSintoniaPreview.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
+            // ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", postModel.UsuarioModelId);
             return View(postModel);
         }
 
@@ -152,8 +168,9 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
+            var usuario = await _userManager.GetUserAsync(User);
             var postModel = await _context.Posts
-                .Include(p => p.UsuarioModel)
+                .Where(p => p.UsuarioModelId == usuario.Id)
                 .FirstOrDefaultAsync(m => m.PostModelId == id);
             if (postModel == null)
             {

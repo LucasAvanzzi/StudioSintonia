@@ -1,65 +1,82 @@
 ﻿@model IEnumerable<StudioSintoniaPreview.Models.PostModel>
 
-@{
-    ViewData["Title"] = "Index";
-}
 
-<h1>Index</h1>
+<div class="container d-flex flex-column align-items-center">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TagId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Conteudo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Curtidas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioModel)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TagId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conteudo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Curtidas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioModel.UsuarioModelId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PostModelId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostModelId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostModelId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <br />
+    <figure class="profile-card">
+        <div class="profile-header">
+            <img src="uploads/capa-perfil.png" alt="Capa Perfil">
+        </div>
+
+        <div class="profile-body">
+
+            <div class="img-perfil">
+                <img src="">
+            </div>
+
+            <p>@User.Identity.Name</p>
+            <figcaption class="descricao">
+
+                <p>
+
+                    <b>Compositor, Musico</b><br>
+                    <br>
+
+                </p>
+
+            </figcaption>
+
+            <div class="redes-sociais">
+
+                <ul>
+
+                    <li><a href="#" title="Facebook"> <i class="icon icon-facebook"></i> </a></li>
+                    <li><a href="#" title="Instagram"> <i class="icon icon-instagram"></i> </a></li>
+                    <li><a href="#" title="Twitter"> <i class="icon icon-twitter"></i> </a></li>
+                    <li><a href="#" title="Pinterest"> <i class="icon icon-pinterest"></i> </a></li>
+
+                </ul>
+                <br />
+                <!-- Botão para abrir o modal -->
+
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Adicionar Post
+            </button>
+        </div>
+    </figure>
+
+    <!-- Renderização da Partial View -->
+    @Html.Partial("Modal", new StudioSintoniaPreview.Models.PostModel())
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+                    <div class="card" style="width: 100%; max-width: 500px;">
+                        <div class="capa-item">
+                            <img src="~/arquivos/@item.Conteudo" class="card-img-top" alt="Capa do Post" style="width: 100%; height: auto;">
+                        </div>
+                        <div class="card-body">
+                            <a asp-action="Edit" asp-route-id="@item.PostModelId" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.PostModelId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <style>
+        .capa-container .capa-item img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>

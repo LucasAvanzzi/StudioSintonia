@@ -1,0 +1,50 @@
+﻿@model List<StudioSintoniaPreview.Models.PostModel>
+
+
+<header>
+    <div class id="flex-container container1">
+        <br />
+        <div>
+            <h1>Seja bem-vindo ao Studio Sintonia</h1>
+            <h2>Aqui você encontra os melhores beats.</h2>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
+            <br />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        </form>
+    </div>
+</header>
+
+<br />
+<br />
+<br />
+<br />
+
+@foreach (var item in Model)
+{
+    <div class="col-12 mb-4 d-flex justify-content-center">
+        <div class="card" style="width: 100%; max-width: 500px;">
+            <div class="capa-item">
+                <img src="~/arquivos/@item.Conteudo" class="card-img-top" alt="Capa do Post" style="width: 100%; height: auto;">
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Tag ID:</strong> @item.TagId</p>
+                <p class="card-text"><strong>Descrição:</strong> @item.Descricao</p>
+                <p class="card-text"><strong>Curtidas:</strong> @item.Curtidas</p>
+                <p class="card-text"><strong>Valor:</strong> @item.Valor</p>
+                <a asp-action="Edit" asp-route-id="@item.PostModelId" class="btn btn-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.PostModelId" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+<style>
+    .capa-container .capa-item img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+

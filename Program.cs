@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using StudioSintoniaPreview.Data;
-using StudioSintoniaPreview.Repositorio;
 
 namespace StudioSintoniaPreview
 {
@@ -21,8 +20,6 @@ namespace StudioSintoniaPreview
             builder.Services.AddDbContext<BancoContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
             );
-
-            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<BancoContext>();

@@ -11,7 +11,6 @@ namespace StudioSintoniaPreview.Data
         {
 
         }
-        public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<PostModel> Posts { get; set; }
         public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<Tag> Tags { get; set; }

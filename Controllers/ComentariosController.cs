@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,19 @@ namespace StudioSintoniaPreview.Controllers
     public class ComentariosController : Controller
     {
         private readonly BancoContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ComentariosController(BancoContext context)
+        public ComentariosController(BancoContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Comentarios
         public async Task<IActionResult> Index()
         {
-            var bancoContext = _context.Comentarios.Include(c => c.PostModel).Include(c => c.UsuarioModel);
+            var usuario = await _userManager.GetUserAsync(User);
+            var bancoContext = _context.Comentarios.Include(c => c.PostModel).Where(c => c.UsuarioModelId == usuario!.Id);
             return View(await bancoContext.ToListAsync());
         }
 
@@ -34,9 +38,10 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
+            var usuario = await _userManager.GetUserAsync(User);
             var comentario = await _context.Comentarios
                 .Include(c => c.PostModel)
-                .Include(c => c.UsuarioModel)
+                .Where(c => c.UsuarioModelId == usuario!.Id)
                 .FirstOrDefaultAsync(m => m.ComentarioId == id);
             if (comentario == null)
             {
@@ -49,26 +54,26 @@ namespace StudioSintoniaPreview.Controllers
         // GET: Comentarios/Create
         public IActionResult Create()
         {
-            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId");
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId");
+           // ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId");
+         // ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId");
             return View();
         }
 
         // POST: Comentarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ComentarioId,UsuarioModelId,PostModelId,UsuarioNome")] Comentario comentario)
         {
             if (ModelState.IsValid)
             {
+                var usuario = await _userManager.GetUserAsync(User);
+                comentario.UsuarioModelId = usuario!.Id;
                 _context.Add(comentario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
+           // ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
+           // ViewData["UsuarioModelId"] = new SelectList(_userManager, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
             return View(comentario);
         }
 
@@ -85,14 +90,12 @@ namespace StudioSintoniaPreview.Controllers
             {
                 return NotFound();
             }
-            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
+           // ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
+           // ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
             return View(comentario);
         }
 
         // POST: Comentarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ComentarioId,UsuarioModelId,PostModelId,UsuarioNome")] Comentario comentario)
@@ -122,8 +125,8 @@ namespace StudioSintoniaPreview.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
-            ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
+            //ViewData["PostModelId"] = new SelectList(_context.Posts, "PostModelId", "PostModelId", comentario.PostModelId);
+          //  ViewData["UsuarioModelId"] = new SelectList(_context.Usuarios, "UsuarioModelId", "UsuarioModelId", comentario.UsuarioModelId);
             return View(comentario);
         }
 
@@ -135,9 +138,10 @@ namespace StudioSintoniaPreview.Controllers
                 return NotFound();
             }
 
+            var usuario = await _userManager.GetUserAsync(User);
             var comentario = await _context.Comentarios
                 .Include(c => c.PostModel)
-                .Include(c => c.UsuarioModel)
+                .Where(c => c.UsuarioModelId == usuario.Id)
                 .FirstOrDefaultAsync(m => m.ComentarioId == id);
             if (comentario == null)
             {

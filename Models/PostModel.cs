@@ -11,8 +11,10 @@ namespace StudioSintoniaPreview.Models
         public int PostModelId { get; set; }
 
         //FK
+        [ForeignKey("TagId")]
         public int TagId { get; set; }
-        public int UsuarioModelId { get; set; }
+        public string? UsuarioModelId { get; set; }
+
 
         [MaxLength(500)]
         public string? Conteudo { get; set; }
@@ -32,7 +34,5 @@ namespace StudioSintoniaPreview.Models
         public ICollection<Comentario>? Comentarios { get; set; }
         public ICollection<Tag>? Tags { get; set; }
 
-       // [ForeignKey("UsuarioModelId")]
-        public virtual UsuarioModel? UsuarioModel { get; set; }
     }
 }

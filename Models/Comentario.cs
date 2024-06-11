@@ -8,7 +8,7 @@ namespace StudioSintoniaPreview.Models
        // [Key]
         public int ComentarioId { get; set; }
         //FK
-        public int UsuarioModelId { get; set; }
+        public string UsuarioModelId { get; set; }
         public int PostModelId { get; set; }
 
         [MaxLength(100)]
@@ -17,7 +17,5 @@ namespace StudioSintoniaPreview.Models
         //[ForeignKey("PostModelId")]
         public virtual PostModel? PostModel { get; set; }
 
-        //[ForeignKey("UsuarioModelId")]
-        public virtual UsuarioModel? UsuarioModel { get; set; }
     }
 }

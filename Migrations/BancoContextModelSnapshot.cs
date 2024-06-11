@@ -283,8 +283,9 @@ namespace StudioSintoniaPreview.Migrations
                     b.Property<int>("PostModelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsuarioModelId")
-                        .HasColumnType("int");
+                    b.Property<string>("UsuarioModelId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UsuarioNome")
                         .HasMaxLength(100)
@@ -293,8 +294,6 @@ namespace StudioSintoniaPreview.Migrations
                     b.HasKey("ComentarioId");
 
                     b.HasIndex("PostModelId");
-
-                    b.HasIndex("UsuarioModelId");
 
                     b.ToTable("Comentarios");
                 });
@@ -324,16 +323,14 @@ namespace StudioSintoniaPreview.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsuarioModelId")
-                        .HasColumnType("int");
+                    b.Property<string>("UsuarioModelId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Valor")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PostModelId");
-
-                    b.HasIndex("UsuarioModelId");
 
                     b.ToTable("Posts");
                 });
@@ -356,45 +353,6 @@ namespace StudioSintoniaPreview.Migrations
                     b.HasKey("TagId");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("StudioSintoniaPreview.Models.UsuarioModel", b =>
-                {
-                    b.Property<int>("UsuarioModelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioModelId"));
-
-                    b.Property<string>("Celular")
-                        .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UsuarioBio")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("UsuarioFoto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UsuarioProfissaoNome")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("UsuarioModelId");
-
-                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -471,36 +429,12 @@ namespace StudioSintoniaPreview.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudioSintoniaPreview.Models.UsuarioModel", "UsuarioModel")
-                        .WithMany()
-                        .HasForeignKey("UsuarioModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("PostModel");
-
-                    b.Navigation("UsuarioModel");
-                });
-
-            modelBuilder.Entity("StudioSintoniaPreview.Models.PostModel", b =>
-                {
-                    b.HasOne("StudioSintoniaPreview.Models.UsuarioModel", "UsuarioModel")
-                        .WithMany("Postagens")
-                        .HasForeignKey("UsuarioModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UsuarioModel");
                 });
 
             modelBuilder.Entity("StudioSintoniaPreview.Models.PostModel", b =>
                 {
                     b.Navigation("Comentarios");
-                });
-
-            modelBuilder.Entity("StudioSintoniaPreview.Models.UsuarioModel", b =>
-                {
-                    b.Navigation("Postagens");
                 });
 #pragma warning restore 612, 618
         }
