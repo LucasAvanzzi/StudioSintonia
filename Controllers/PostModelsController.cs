@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudioSintoniaPreview.Data;
+using StudioSintoniaPreview.Entities;
 using StudioSintoniaPreview.Models;
 
 namespace StudioSintoniaPreview.Controllers
@@ -32,6 +33,26 @@ namespace StudioSintoniaPreview.Controllers
             var bancoContext = _context.Posts.Where(p => p.UsuarioModelId == usuario!.Id);
             return View(await bancoContext.ToListAsync());
         }
+
+        [HttpPost]
+        public JsonResult CurtiPost(int postId)
+        {
+            var post = _context.Posts.Find(postId);
+            if (post != null)
+            {
+                post.Curtido = true; // Atualiza o valor de curtida para true
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+
+        //[HttpGet]
+        //public async Task<IActionResult> BuscarCurtidas()
+        //{
+        //    var result = await _context.Posts.Where(p => p.)
+        //    return View();
+        //}
 
         public async Task<IActionResult> Feed()
         {

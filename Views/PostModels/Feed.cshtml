@@ -29,17 +29,52 @@
                 <img src="~/arquivos/@item.Conteudo" class="card-img-top" alt="Capa do Post" style="width: 100%; height: auto;">
             </div>
             <div class="card-body">
+                <div style="display: flex; justify-content: flex-end;">
+                    <i id="like-icon" class='bx bx-heart bx-md' style="cursor: pointer;"></i>
+                </div>
                 <p class="card-text"><strong>Tag ID:</strong> @item.TagId</p>
                 <p class="card-text"><strong>Descrição:</strong> @item.Descricao</p>
                 <p class="card-text"><strong>Curtidas:</strong> @item.Curtidas</p>
                 <p class="card-text"><strong>Valor:</strong> @item.Valor</p>
                 <a asp-action="Edit" asp-route-id="@item.PostModelId" class="btn btn-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@item.PostModelId" class="btn btn-danger">Delete</a>
+
+                <button style="display: none;" id="postid" value="@item.PostModelId" class="card-text">@item.PostModelId</button>
+
             </div>
         </div>
     </div>
 }
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#like-icon').click(function () {
+                var postId = $('#postid').val();
+                $.ajax({
+                    url: '/PostModels/CurtiPost',
+                    type: 'POST',
+                    data: {
+                        postId: postId
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#like-icon').removeClass('bx-heart').addClass('bx-heart-circle');
+                            $('#like-icon').css('color', 'red');
+                        } else {
+                            alert('Erro ao curtir o post.');
+                        }
+                    },
+                    error: function () {
+                        alert('Erro ao curtir o post.');
+                    }
+                });
+            });
+        });
+    </script>
+}
+
 
 <style>
     .capa-container .capa-item img {
