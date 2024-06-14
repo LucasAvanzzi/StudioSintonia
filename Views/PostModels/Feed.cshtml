@@ -30,9 +30,9 @@
             </div>
             <div class="card-body">
                 <div style="display: flex; justify-content: flex-end;">
-                    <i id="like-icon" class='bx bx-heart bx-md' style="cursor: pointer;"></i>
+                    <i id="like-icon-@item.PostModelId" onclick="Curtir(@item.PostModelId)" class='bx bx-heart bx-md' style="cursor: pointer;"></i>
                 </div>
-                <p class="card-text"><strong>Tag ID:</strong> @item.TagId</p>
+                <p class="card-text"><strong>Tag:</strong> @item.TagId</p>
                 <p class="card-text"><strong>Descrição:</strong> @item.Descricao</p>
                 <p class="card-text"><strong>Curtidas:</strong> @item.Curtidas</p>
                 <p class="card-text"><strong>Valor:</strong> @item.Valor</p>
@@ -49,27 +49,30 @@
 
 @section Scripts {
     <script>
+        function Curtir(PostModelId) {
+            $.ajax({
+                url: '/PostModels/CurtiPost',
+                type: 'POST',
+                data: {
+                    postId: PostModelId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#like-icon-' + PostModelId).removeClass('bx-heart').addClass('bx-heart-circle');
+                        $('#like-icon' + PostModelId).css('color', 'red');
+                    } else {
+                        alert('Erro ao curtir o post.');
+                    }
+                },
+                error: function () {
+                    alert('Erro ao curtir o post.');
+                }
+            });
+        }
+
         $(document).ready(function () {
             $('#like-icon').click(function () {
                 var postId = $('#postid').val();
-                $.ajax({
-                    url: '/PostModels/CurtiPost',
-                    type: 'POST',
-                    data: {
-                        postId: postId
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            $('#like-icon').removeClass('bx-heart').addClass('bx-heart-circle');
-                            $('#like-icon').css('color', 'red');
-                        } else {
-                            alert('Erro ao curtir o post.');
-                        }
-                    },
-                    error: function () {
-                        alert('Erro ao curtir o post.');
-                    }
-                });
             });
         });
     </script>

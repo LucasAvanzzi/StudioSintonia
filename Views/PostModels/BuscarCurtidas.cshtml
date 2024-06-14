@@ -1,0 +1,87 @@
+﻿@model IEnumerable<StudioSintoniaPreview.Models.PostModel>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<h1 class="text-center">Seus Favoritos</h1>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+    <div class="container ms-5 d-flex flex-column align-items-center">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+                    <div class="card" style="width: 100%; max-width: 500px;">
+                        <div class="capa-item">
+                            <img src="~/arquivos/@item.Conteudo" class="card-img-top" alt="Capa do Post" style="width: 100%; height: auto;">
+                        </div>
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: flex-end;">
+                                <i id="like-icon-@item.PostModelId" onclick="Curtir(@item.PostModelId)" class='bx bx-heart-circle bx-md' style="cursor: pointer;"></i>
+                            </div>
+                            <p class="card-text"><strong>Tag:</strong> @item.TagId</p>
+                            <p class="card-text"><strong>Descrição:</strong> @item.Descricao</p>
+                            <p class="card-text"><strong>Curtidas:</strong> @item.Curtidas</p>
+                            <p class="card-text"><strong>Valor:</strong> @item.Valor</p>
+
+                            <button style="display: none;" id="postid" value="@item.PostModelId" class="card-text">@item.PostModelId</button>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+@section Scripts {
+    <script>
+        function Curtir(PostModelId) {
+            $.ajax({
+                url: '/PostModels/CurtiPost',
+                type: 'POST',
+                data: {
+                    postId: PostModelId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#like-icon-' + PostModelId).removeClass('bx-heart-circle').addClass('bx-heart');
+                        $('#like-icon' + PostModelId).css('color', 'red');
+                    } else {
+                        alert('Erro ao curtir o post.');
+                    }
+                },
+                error: function () {
+                    alert('Erro ao curtir o post.');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#like-icon').click(function () {
+                var postId = $('#postid').val();
+            });
+        });
+    </script>
+}
+
+<style>
+    .capa-container .capa-item img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+
+

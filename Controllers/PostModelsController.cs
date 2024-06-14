@@ -40,19 +40,21 @@ namespace StudioSintoniaPreview.Controllers
             var post = _context.Posts.Find(postId);
             if (post != null)
             {
-                post.Curtido = true; // Atualiza o valor de curtida para true
+                
+                post.Curtido = !post.Curtido; // Alterna o estado de curtida
+                _context.Update(post);
                 _context.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, isLiked = post.Curtido });
             }
             return Json(new { success = false });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> BuscarCurtidas()
-        //{
-        //    var result = await _context.Posts.Where(p => p.)
-        //    return View();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> BuscarCurtidas()
+        {
+            var result =  _context.Posts.Where(p => p.Curtido == true);
+            return View(result);
+        }
 
         public async Task<IActionResult> Feed()
         {

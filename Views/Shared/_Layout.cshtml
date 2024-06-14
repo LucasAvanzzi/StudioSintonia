@@ -12,60 +12,72 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    
+
     @RenderSection("Styles", required: false)
 </head>
+@{
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var isLoginPage = currentController.Equals("Account", StringComparison.OrdinalIgnoreCase) && currentAction.Equals("Login", StringComparison.OrdinalIgnoreCase);
+    var isRegisterPage = currentController.Equals("Account", StringComparison.OrdinalIgnoreCase) && currentAction.Equals("Register", StringComparison.OrdinalIgnoreCase);
+    var hideSidebar = isLoginPage || isRegisterPage;
+}
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2">
-                <!-- Barra Lateral -->
-                <aside>
-                    <div class="toggle">
-                        <div class="logo">
-                            @* <img src="~/lib/Studio Sintonia.png" /> *@
-                            <h2>Studio<span class="danger">Sintonia</span></h2>
+            @if (!hideSidebar)
+            {
+                <div class="col-sm-2">
+                    <!-- Barra Lateral -->
+                    <aside>
+                        <div class="toggle">
+                            <div class="logo">
+                                @* <img src="~/lib/Studio Sintonia.png" /> *@
+                                <h2>Studio<span class="danger">Sintonia</span></h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="sidebar">
-                        <a class="nav-link" asp-controller="PostModels" asp-action="Feed">
-                            <i class="fas fa-home"></i>
-                            <h3>Feed</h3>
-                        </a>
-                        <a class="nav-link" asp-controller="PostModels" asp-action="Index">
-                            <i class="fas fa-user"></i>
-                            <h3>Perfil</h3>
-                        </a>
-                        <a class="nav-link" asp-controller="PostModels" asp-action="Curtidas">
-                            <i class="fas fa-heart"></i>
-                            <h3>Curtidas</h3>
-                        </a>
-                        <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
-                            <i class="fas fa-chart-bar"></i>
-                            <h3>Analytics</h3>
-                        </a>
-                        @*                         <a class="nav link" asp-controller="UsuarioModels" asp-action="Index">
+                        <div class="sidebar">
+                            <a class="nav-link" asp-controller="PostModels" asp-action="Feed">
+                                <i class="fas fa-home"></i>
+                                <h3>Feed</h3>
+                            </a>
+                            <a class="nav-link" asp-controller="PostModels" asp-action="Index">
+                                <i class="fas fa-user"></i>
+                                <h3>Perfil</h3>
+                            </a>
+                            <a class="nav-link" asp-controller="PostModels" asp-action="BuscarCurtidas">
+                                <i class="fas fa-heart"></i>
+                                <h3>Curtidas</h3>
+                            </a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
+                                <i class="fas fa-chart-bar"></i>
+                                <h3>Analytics</h3>
+                            </a>
+                            @* <a class="nav link" asp-controller="UsuarioModels" asp-action="Index">
                         <i class="fas fa-sign-out-alt"></i>
                         <h3>Logout</h3>
                         </a> *@
 
-                        <partial name="_LoginPartial.cshtml" />
-
-                    </div>
-
-                </aside>
-            </div>
-            <div class="col-sm-10">
-
+                            <partial name="_LoginPartial.cshtml" />
+                        </div>
+                    </aside>
+                </div>
+            }
+            <div class="@(hideSidebar ? "col-sm-12" : "col-sm-10")">
                 @RenderBody()
-
             </div>
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+@*     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
+
 </html>

@@ -36,13 +36,43 @@
                 </ul>
                 <br />
                 <!-- Botão para abrir o modal -->
-
+                <button type="button" onclick="abrirModal()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Adicionar Post
+                </button>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Adicionar Post
-            </button>
         </div>
     </figure>
+
+    <script>
+        function abrirModal() {
+            // Verificar se as bibliotecas já estão carregadas
+            if (typeof jQuery === 'undefined') {
+                // Carregar jQuery se ainda não estiver carregado
+                var jqueryScript = document.createElement('script');
+                jqueryScript.src = 'https://code.jquery.com/jquery-3.5.1.slim.min.js';
+                jqueryScript.onload = function () {
+                    // Após carregar jQuery, carregar Bootstrap
+                    carregarBootstrap();
+                };
+                document.head.appendChild(jqueryScript);
+            } else {
+                // Se jQuery já estiver carregado, carregar diretamente Bootstrap
+                carregarBootstrap();
+            }
+
+            function carregarBootstrap() {
+                if (typeof $.fn.modal === 'undefined') {
+                    // Carregar Bootstrap se o método modal não estiver definido
+                    var bootstrapScript = document.createElement('script');
+                    bootstrapScript.src = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js';
+                    document.head.appendChild(bootstrapScript);
+                }
+                // Aqui você pode abrir o modal
+                $('#myModal').modal('show');
+            }
+        }
+    </script>
+
 
     <!-- Renderização da Partial View -->
     @Html.Partial("Modal", new StudioSintoniaPreview.Models.PostModel())
@@ -52,7 +82,7 @@
     <br />
     <br />
 
-    <div class="container">
+    <div class="container ms-5">
         <div class="row">
             @foreach (var item in Model)
             {

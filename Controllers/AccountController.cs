@@ -70,7 +70,7 @@ namespace StudioSintoniaPreview.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("Feed", "PostModels");
                 }
 
                 ModelState.AddModelError(string.Empty, "Login Inválido");
@@ -81,7 +81,7 @@ namespace StudioSintoniaPreview.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");   
+            return RedirectToAction("Login", "Account");   
         }
     }
 }

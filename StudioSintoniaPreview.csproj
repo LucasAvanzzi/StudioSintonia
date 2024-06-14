@@ -47,6 +47,7 @@
     <Content Remove="Views\Musicas\Musicas_Index.cshtml" />
     <Content Remove="Views\PostModels\Create.cshtml" />
     <Content Remove="Views\PostModels\Details.cshtml" />
+    <Content Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <Content Remove="wwwroot\arquivos\009c5965-450a-4286-a1ea-efe0944a9e7e_Cadastro.png" />
     <Content Remove="wwwroot\arquivos\dc0d06aa-29d7-43ff-9d46-e3115b9ecf09_Captura de tela 2023-09-22 133205.png" />
   </ItemGroup>
