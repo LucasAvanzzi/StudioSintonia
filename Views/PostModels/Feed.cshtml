@@ -32,11 +32,10 @@
                 <div style="display: flex; justify-content: flex-end;">
                     <i id="like-icon-@item.PostModelId" onclick="Curtir(@item.PostModelId)" class='bx bx-heart bx-md' style="cursor: pointer;"></i>
                 </div>
-                <p class="card-text"><strong>Tag:</strong> @item.TagId</p>
+                <p class="card-text"><strong>Tag:</strong> Imagem</p>
                 <p class="card-text"><strong>Descrição:</strong> @item.Descricao</p>
-                <p class="card-text"><strong>Curtidas:</strong> @item.Curtidas</p>
+                <p class="card-text"><strong>Curtidas:</strong> 1</p>
                 <p class="card-text"><strong>Valor:</strong> @item.Valor</p>
-                <a asp-action="Edit" asp-route-id="@item.PostModelId" class="btn btn-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@item.PostModelId" class="btn btn-danger">Delete</a>
 
                 <button style="display: none;" id="postid" value="@item.PostModelId" class="card-text">@item.PostModelId</button>
