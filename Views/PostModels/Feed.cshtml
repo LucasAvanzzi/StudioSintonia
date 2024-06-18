@@ -1,4 +1,6 @@
 ﻿@model List<StudioSintoniaPreview.Models.PostModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 
 
 <header>
@@ -36,7 +38,11 @@
                 <p class="card-text"><strong>Descrição:</strong> @item.Descricao</p>
                 <p class="card-text"><strong>Curtidas:</strong> 1</p>
                 <p class="card-text"><strong>Valor:</strong> @item.Valor</p>
-                <a asp-action="Delete" asp-route-id="@item.PostModelId" class="btn btn-danger">Delete</a>
+@*                 @if (item.UsuarioModelId == item.UsuarioModelId)
+                {
+                    <a asp-action="Delete" asp-route-id="@item.PostModelId" class="btn btn-danger">Delete</a>
+                } *@
+               
 
                 <button style="display: none;" id="postid" value="@item.PostModelId" class="card-text">@item.PostModelId</button>
 
@@ -44,7 +50,6 @@
         </div>
     </div>
 }
-</div>
 
 @section Scripts {
     <script>

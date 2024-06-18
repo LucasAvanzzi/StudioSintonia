@@ -7,7 +7,8 @@
         <form method="post" asp-controller="account" asp-action="logout">
             <button type="submit" style="width:auto"
             class="nav-link btn btn-link py-0">
-            Sair
+                <p>@User.Identity.Name</p>
+                <p>Sair</p>
         </button>
         </form>
     </ul>
